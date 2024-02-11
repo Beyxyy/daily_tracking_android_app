@@ -10,24 +10,17 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity {
 
+
     private Button buttonClick;
 
     private int count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(login);
+        finish();
 
-        this.buttonClick = findViewById(R.id.target);
-
-        buttonClick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent otherActivity = new Intent(getApplicationContext(), CookieActivity.class);
-                startActivity(otherActivity);
-                finish();
-            }
-        });
     }
 
     public void displayblabla(){

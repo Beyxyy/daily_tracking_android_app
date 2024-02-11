@@ -24,7 +24,6 @@ public class CookieActivity extends AppCompatActivity {
             public void onClick(View v) {
                 counter++;
                 points.setText("Points : "+ counter);
-                System.out.print(counter);
             }
         });
     }

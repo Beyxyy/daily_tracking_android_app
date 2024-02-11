@@ -10,17 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-
         >
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Clickez moi"
-            android:id="@+id/target"
-            >
-
-        </Button>
 
         <TextView
             android:layout_width="match_parent"
@@ -31,4 +21,12 @@
 
         </TextView>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/target"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clickez moi">
+
+    </Button>
 </RelativeLayout>

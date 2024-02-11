@@ -10,4 +10,8 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="test">testestest</string>
+    <string name="action_login">Me Connecter</string>
+    <string name="action_login_title">Connection</string>
+    <string name="action_login_mdp">Mot de passe</string>
+    <string name="action_login_id">Identifiant</string>
 </resources>
