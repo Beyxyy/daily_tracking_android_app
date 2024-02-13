@@ -2,6 +2,7 @@ package fr.anthonykalbe.daily_tracking;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -40,5 +41,24 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    private boolean AddPreferencesLoginInfo(){
+        SharedPreferences sharedPreferences = getSharedPreferences("NomDeTesPreferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("isLoggedIn", "true");
+        editor.apply();
+        return true;
+
+    }
+    public boolean CheckisLoggedIn(){
+        SharedPreferences sharedPreferences = getSharedPreferences("NomDeTesPreferences", Context.MODE_PRIVATE);
+        String valeur = sharedPreferences.getString("isLoggedIn", "valeurParDefaut");
+         if(valeur.equals("true")){
+             return true;
+         }
+        return false;
+
     }
 }
