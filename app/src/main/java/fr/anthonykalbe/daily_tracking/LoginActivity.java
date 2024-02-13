@@ -29,10 +29,9 @@ public class LoginActivity extends AppCompatActivity {
                 String id_content = id.getText().toString();
                 String pwd_content = pwd.getText().toString();
                 if(!id_content.isEmpty() && !pwd_content.isEmpty()){
-                    System.out.println("Identifiant : " + id_content);
-                    System.out.println("Mot de passe : " + pwd_content);
                     User user = new User(id_content, pwd_content);
                     if (user.checkExists()){
+                        AddPreferencesLoginInfo();
                         Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
                         startActivity(mainActivity);
                         finish();
@@ -44,16 +43,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private boolean AddPreferencesLoginInfo(){
+    private void AddPreferencesLoginInfo(){
         SharedPreferences sharedPreferences = getSharedPreferences("NomDeTesPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("isLoggedIn", "true");
         editor.apply();
-        return true;
+        return;
 
     }
-    public boolean CheckisLoggedIn(){
-        SharedPreferences sharedPreferences = getSharedPreferences("NomDeTesPreferences", Context.MODE_PRIVATE);
+    public static boolean CheckisLoggedIn(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("NomDeTesPreferences", Context.MODE_PRIVATE);
         String valeur = sharedPreferences.getString("isLoggedIn", "valeurParDefaut");
          if(valeur.equals("true")){
              return true;

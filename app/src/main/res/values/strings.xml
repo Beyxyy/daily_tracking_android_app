@@ -16,4 +16,11 @@
     <string name="action_login_id">Identifiant</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
+
+    <!-- Home Fragment -->
+
+    <string name='btn_entrainement'>Entrainement</string>
 </resources>
