@@ -18,9 +18,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-
-
     <!-- Home Fragment -->
 
     <string name='btn_entrainement'>Entrainement</string>
+    <string name='btn_agenda'>Agenda</string>
+    <string name="title_activity_training">TrainingActivity</string>
 </resources>

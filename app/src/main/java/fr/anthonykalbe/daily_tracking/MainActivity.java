@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
             Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(loginActivity);
             finish();
-
             return;
         }
         setContentView(R.layout.activity_main);
@@ -27,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
                 int itemId = item.getItemId(); // Récupère l'ID de l'élément
-
                 if (itemId == R.id.nav_message) {
                     moveToFragment(new HomeFragment());
                 } else if (itemId == R.id.nav_home) {
@@ -35,10 +33,8 @@ public class MainActivity extends AppCompatActivity {
                 } else if (itemId == R.id.nav_profile) {
                     moveToFragment(new ProfileFragment());
                 }
-
             return true;
         });
-
     }
 
 

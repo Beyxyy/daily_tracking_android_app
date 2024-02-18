@@ -1,5 +1,7 @@
 package fr.anthonykalbe.daily_tracking;
 
+import java.util.Map;
+
 public class User {
 
     private String id;
@@ -11,6 +13,7 @@ public class User {
     }
 
     public boolean checkExists(){
+        APIManager apiManager = new APIManager("login", Map.of("identifiant",  this.id, "password", this.pwd));
         return true;
     }
 
