@@ -15,20 +15,8 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".TrainingActivity"
-            android:exported="false"
-            android:label="@string/title_activity_training"
-            android:theme="@style/Theme.Daily_tracking" />
-        <activity
             android:name=".LoginActivity"
             android:exported="false" />
-        <activity
-            android:name=".CookieActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

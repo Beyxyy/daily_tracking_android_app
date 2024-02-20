@@ -3,10 +3,13 @@ package fr.anthonykalbe.daily_tracking;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +62,41 @@ public class TraingingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        View view =  inflater.inflate(R.layout.fragment_trainging, container, false);
 
-        return inflater.inflate(R.layout.fragment_trainging, container, false);
+        Button push_button = view.findViewById(R.id.push_button);
+        Button pull_button = view.findViewById(R.id.pull_button);
+        Button leg_button = view.findViewById(R.id.leg_button);
+
+        push_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayNewFragmentTraining("push");
+            }
+        });
+        pull_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayNewFragmentTraining("pull");
+            }
+        });
+        leg_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayNewFragmentTraining("leg");
+
+            }
+        });
+        return view;
+    }
+
+
+    private void displayNewFragmentTraining(String arg) {
+        Fragment NextFragment = new SessionFragment();
+
+        if (NextFragment != null) {
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerFragment, NextFragment).addToBackStack(null).commit();
+        }
+
     }
 }

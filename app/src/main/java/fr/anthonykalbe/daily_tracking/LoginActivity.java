@@ -31,26 +31,10 @@ public class LoginActivity extends AppCompatActivity {
                 String id_content = id.getText().toString();
                 String pwd_content = pwd.getText().toString();
                 if(!id_content.isEmpty() && !pwd_content.isEmpty()){
-                    ApiManager apiManager = new ApiManager;
-                    Map<String, Object> requestBody = new HashMap<>();
-                    requestBody.put("identifiant", "ton_identifiant");
-                    requestBody.put("password", "ton_mot_de_passe");
-                    apiManager.loginUser(requestBody, new ApiManager.ApiCallback<String>() {
-                        @Override
-                        public void onSuccess(String result) {
-                            AddPreferencesLoginInfo();
-                            Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(mainActivity);
-                            apiManager.
-                            finish();
-                        }
-
-                        @Override
-                        public void onFailure(Throwable t) {
-                            // Gère les erreurs (par exemple, affiche un message d'erreur à l'utilisateur)
-                            // Note : Ceci est exécuté dans le thread principal, assure-toi de ne pas bloquer l'interface utilisateur.
-                        }
-                    });
+                    AddPreferencesLoginInfo();
+                    Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(mainActivity);
+                    finish();
                 }
 
             }

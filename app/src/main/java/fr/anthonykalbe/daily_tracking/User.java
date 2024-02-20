@@ -13,7 +13,7 @@ public class User {
     }
 
     public boolean checkExists(){
-        APIManager apiManager = new APIManager("login", Map.of("identifiant",  this.id, "password", this.pwd));
+        //APIManager apiManager = new APIManager("login", Map.of("identifiant",  this.id, "password", this.pwd));
         return true;
     }
 
