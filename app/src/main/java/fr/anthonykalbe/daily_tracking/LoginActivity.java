@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,10 +33,18 @@ public class LoginActivity extends AppCompatActivity {
                 String id_content = id.getText().toString();
                 String pwd_content = pwd.getText().toString();
                 if(!id_content.isEmpty() && !pwd_content.isEmpty()){
-                    AddPreferencesLoginInfo();
-                    Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(mainActivity);
-                    finish();
+                    ApiManager apiManager = new ApiManager();
+                    JSONObject result = apiManager.login(id_content,pwd_content);
+                    if(result == null){
+                        System.out.print("Erreur pendant la connection");
+                    }
+                    else{
+                        AddPreferencesLoginInfo(result);
+                        Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(mainActivity);
+                        finish();
+                    }
+
                 }
 
             }
@@ -42,18 +52,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void AddPreferencesLoginInfo(){
+    private void AddPreferencesLoginInfo(JSONObject result){
         SharedPreferences sharedPreferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("isLoggedIn", "true");
+        editor.putString("token", result.toString());
         editor.apply();
         return;
 
     }
     public static boolean CheckisLoggedIn(Context context){
         SharedPreferences sharedPreferences = context.getSharedPreferences("NomDeTesPreferences", Context.MODE_PRIVATE);
-        String valeur = sharedPreferences.getString("isLoggedIn", "valeurParDefaut");
-         if(valeur.equals("true")){
+        String valeur = sharedPreferences.getString("isLoggedIn", "false");
+         if(!valeur.equals("false")){
              return true;
          }
         return false;
