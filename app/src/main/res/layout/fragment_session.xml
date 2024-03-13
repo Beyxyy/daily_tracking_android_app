@@ -17,6 +17,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
+        android:tag="Développer couché haltères"
         android:text="Développer couché haltères"
         />
     <Button
@@ -24,11 +25,13 @@
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:text="Ecarté poulie"
+        android:tag = "Ecarté poulie"
         />
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
+        android:tag="dips"
         android:text="Dips"
         />
 
@@ -36,6 +39,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
+        android:tag="Extension triceps nuque"
         android:text="Extension triceps nuque"
         />
     <Button
@@ -43,6 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:text="Extension triceps"
+        android:tag="Extension triceps"
         />
     </LinearLayout>
 

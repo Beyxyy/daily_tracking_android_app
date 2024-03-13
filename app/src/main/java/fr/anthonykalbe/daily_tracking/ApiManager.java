@@ -21,11 +21,10 @@ public class ApiManager {
     }
 
     public JSONObject login(String id, String pwd){
-        content = "{\"Username\":\"" + id + "\",\"Pw\":\"" + pwd + "\"}";
-        JSONObject result = executeRequest("/login", content);
+        content = "{\"email\":\"" + id + "\",\"password\":\"" + pwd + "\"}";
+        JSONObject result = executeRequest("/", content);
         return result;
     }
-
 
     public JSONObject executeRequest(String endpoint, String content) {
         try {

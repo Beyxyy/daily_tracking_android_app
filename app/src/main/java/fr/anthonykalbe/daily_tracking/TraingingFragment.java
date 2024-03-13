@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TraingingFragment#newInstance} factory method to
@@ -71,20 +74,27 @@ public class TraingingFragment extends Fragment {
         push_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //get the button's tag
+                ((MainActivity) getActivity()).setActualSession(v.getTag().toString());
+                   /// ((MainActivity) getActivity()).setData(v.getTag().toString(), new JSONObject().toString());
+                    //setData(v.getTag().toString(), new JSONObject().toString());
+
                 displayNewFragmentTraining("push");
             }
         });
         pull_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                    //setData("session", v.getTag().toString());
+                ((MainActivity) getActivity()).setActualSession(v.getTag().toString());
                 displayNewFragmentTraining("pull");
             }
         });
         leg_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ((MainActivity) getActivity()).setActualSession(v.getTag().toString());
                 displayNewFragmentTraining("leg");
-
             }
         });
         return view;
@@ -93,10 +103,10 @@ public class TraingingFragment extends Fragment {
 
     private void displayNewFragmentTraining(String arg) {
         Fragment NextFragment = new SessionFragment();
-
         if (NextFragment != null) {
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerFragment, NextFragment).addToBackStack(null).commit();
         }
-
     }
+
+
 }

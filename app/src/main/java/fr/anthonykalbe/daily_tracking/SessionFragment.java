@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import org.json.JSONException;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SessionFragment#newInstance} factory method to
@@ -82,6 +84,8 @@ public class SessionFragment extends Fragment {
                     button.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
+                            //ajout de la session actuelle
+                            ((MainActivity) getActivity()).setActualExercice(v.getTag().toString());
                             // Action à effectuer lors du clic sur un bouton
                             handleButtonClick(button);
                         }

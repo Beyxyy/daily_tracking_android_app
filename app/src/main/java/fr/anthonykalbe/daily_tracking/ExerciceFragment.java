@@ -10,6 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +24,8 @@ import android.widget.Button;
  * create an instance of this fragment.
  */
 public class ExerciceFragment extends Fragment {
+
+    private LinearLayout dynamicLayout;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,39 +72,58 @@ public class ExerciceFragment extends Fragment {
         // Ajouter un OnClickListener à tous les boutons dans le fragment
         addClickListenerToButtons(view);
 
+        this.dynamicLayout = view.findViewById(R.id.dynamicLayout);
+        view.findViewById(R.id.buttonsystemOut).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayPreviousExercices(v);
+            }
+        });
+        //setSet
         return view;
     }
 
     private void addClickListenerToButtons(View parentView) {
-        if (parentView instanceof ViewGroup) {
-            ViewGroup viewGroup = (ViewGroup) parentView;
-            int childCount = viewGroup.getChildCount();
-
-            for (int i = 0; i < childCount; i++) {
-                View childView = viewGroup.getChildAt(i);
-
-                // Si le childView est un bouton, ajouter un OnClickListener
-                if (childView instanceof Button) {
-                    Button button = (Button) childView;
-                    button.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            // Action à effectuer lors du clic sur un bouton
-                            handleButtonClick(button);
-                        }
-                    });
-                }
-
-                // Si le childView est une autre ViewGroup, récursion
-                if (childView instanceof ViewGroup) {
-                    addClickListenerToButtons(childView);
-                }
-            }
-        }
+        Button button = parentView.findViewById(R.id.button);
+        button.setOnClickListener(v -> handleButtonClick(parentView));
     }
 
-    private void handleButtonClick(Button button){
-        Fragment NextFragment = new detailFragment();
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.containerFragment, NextFragment).addToBackStack(null).commit();
+    private void handleButtonClick(View parentView){
+        String nbWeight = ((EditText) parentView.findViewById(R.id.editTextExerciceWeight)).getText().toString();
+        String nbRep = ((EditText) parentView.findViewById(R.id.editTextExerciceReps)).getText().toString();
+        //empty the editText
+        ((EditText) parentView.findViewById(R.id.editTextExerciceWeight)).setText("");
+        ((EditText) parentView.findViewById(R.id.editTextExerciceReps)).setText("");
+        //try {
+            //((MainActivity) getActivity()).setSet(nbRep, nbWeight);
+            JSONObject data = ((MainActivity) getActivity()).getData();
+            System.out.print(data);
+            JSONObject data2 = ((MainActivity) getActivity()).getData();
+            System.out.println(data2);
+        //}
+        //catch (JSONException e) {
+          //  System.out.print(e);
+        //}
+    }
+
+    public void displayPreviousExercices(View v ){
+        JSONObject data = ((MainActivity) getActivity()).getData();
+        try{
+            JSONArray session = data.getJSONArray(((MainActivity) getActivity()).getActualSession());
+            JSONObject exercices =session.getJSONObject(0);
+            JSONArray sets = exercices.getJSONArray(((MainActivity) getActivity()).getActualExercice());
+            System.out.println(sets);
+
+            for ( int i=0; i<sets.length(); i++ ) {
+                //System.out.println( sets[ i ] );
+                TextView textView = new TextView((MainActivity) getActivity());
+                textView.setText(sets.getJSONObject(i).getString("weight") + "kg x " + sets.getJSONObject(i).getString("reps"));
+                this.dynamicLayout.addView(textView);
+            }
+
+        }
+        catch (JSONException e){
+            System.out.println(e);
+        }
     }
 }
