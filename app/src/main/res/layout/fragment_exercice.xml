@@ -8,6 +8,18 @@
     android:layout_marginBottom="20px">
 
     <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Exercice"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/primary"
+        ></TextView>
+
 
 
     <LinearLayout
@@ -18,46 +30,15 @@
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/editTextExerciceReps"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="194dp"
-        android:autofillHints="Reps"
-        android:background="@color/primary"
-        android:hint="Nom de l'exercice"
-        android:inputType="text"
-        android:padding="10dp"
-        />
-
-    <EditText
-        android:layout_marginTop="300dp"
-        android:layout_marginStart="50dp"
-        android:hint="Poids"
-        android:id="@+id/editTextExerciceWeight"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:autofillHints="Poids"
-        android:background="@color/primary"
-        android:inputType="text"
-        android:padding="10dp"
-        tools:ignore="TextFields" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonPopUp"
         android:layout_width="191dp"
         android:layout_height="72dp"
-        android:layout_marginTop="600dp"
         android:layout_marginStart="100dp"
-        android:text="Ajouter une série" />
-    <Button
-        android:id="@+id/buttonsystemOut"
-        android:layout_width="191dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="700dp"
-        android:layout_marginStart="100dp"
-        android:text="buttonnsystemOut"
-        />
+        android:layout_marginTop="500dp"
+        android:text="Afficher un popup" />
+
+
 
 </FrameLayout>

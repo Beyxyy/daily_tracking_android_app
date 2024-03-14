@@ -78,21 +78,29 @@ public class MainActivity extends AppCompatActivity {
             if(this.data.has(this.getActualSession())){
                 JSONArray actualSessionData = (JSONArray) this.data.getJSONArray(this.getActualSession());
                 JSONObject newObject = new JSONObject().put(exercice, new JSONArray());
-                actualSessionData.put(newObject);
-                System.out.print(actualSessionData);
-                Boolean already_enregistred = false;
-                for (int i = 0; i==actualSessionData.length(); i++){
-                    if(actualSessionData.getJSONObject(i).has(exercice)){
-                        already_enregistred = true;
-                    }
-                }
-                if(!already_enregistred) {
+                //actualSessionData.put(newObject);
+                boolean already_enregistred = false;
+                Integer length = actualSessionData.length();
+                System.out.print(length);
+                if(length == 0){
                     actualSessionData.put(newObject);
                 }
                 else{
-                    System.out.print("already enregistred");
+                    for (int i = 0; i<actualSessionData.length(); i++){
+                        if(actualSessionData.getJSONObject(i).has(exercice)){
+                            already_enregistred = true;
+                        }
+                    }
+                    if(!already_enregistred) {
+                        actualSessionData.put(newObject);
+                        System.out.print(this.data);
+                    }
+                    else{
+                        System.out.print("already enregistred");
 
+                    }
                 }
+
             }
         } catch (JSONException e) {
             System.out.println("Error while adding data to JSON");
@@ -120,14 +128,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void setSet(String key, String value) throws JSONException {
-        System.out.print(this.data);
-        JSONArray actualSessionData = this.data.getJSONArray(this.getActualSession()).getJSONObject(0).getJSONArray(this.getActualExercice());
-
-        JSONObject newExercice = new JSONObject().put("weight", value).put("reps", key);
-        actualSessionData.put(newExercice);
+    public void setSet(String reps, String weight) throws JSONException {
+        //JSONArray actualSessionData = this.data.getJSONArray(this.getActualSession()).getJSONObject(0).getJSONArray(this.getActualExercice());
+        JSONArray actualSessionData = this.data.getJSONArray(this.getActualSession());
         System.out.print(actualSessionData);
-        System.out.print(this.data);
-
+                //.getJSONArray(this.getActualExercice());
+        System.out.print(actualSessionData.length());
+        System.out.print(actualSessionData);
+        for(int i = 0; i<actualSessionData.length(); i++){
+            JSONObject a = actualSessionData.getJSONObject(i);
+            if(a.has(this.getActualExercice())){
+                actualSessionData = actualSessionData.getJSONObject(i).getJSONArray(this.getActualExercice());
+                JSONObject newExercice = new JSONObject().put("weight", weight).put("reps", reps);
+                actualSessionData.put(newExercice);
+            }
+        }
     }
+
 }

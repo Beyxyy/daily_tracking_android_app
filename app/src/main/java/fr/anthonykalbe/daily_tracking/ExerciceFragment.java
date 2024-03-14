@@ -1,5 +1,6 @@
 package fr.anthonykalbe.daily_tracking;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -26,6 +27,10 @@ import org.json.JSONObject;
 public class ExerciceFragment extends Fragment {
 
     private LinearLayout dynamicLayout;
+    private TextView title;
+    private MainActivity mainActivity;
+
+    Dialog popUpDialog;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -69,42 +74,62 @@ public class ExerciceFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exercice, container, false);
+        this.mainActivity = (MainActivity) getActivity();
         // Ajouter un OnClickListener à tous les boutons dans le fragment
-        addClickListenerToButtons(view);
-
-        this.dynamicLayout = view.findViewById(R.id.dynamicLayout);
-        view.findViewById(R.id.buttonsystemOut).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.buttonPopUp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayPreviousExercices(v);
+                //add a popup
+                displayPopUp();
             }
         });
-        //setSet
+        addClickListenerToButtons(view);
+        String getActualExercice = ((MainActivity) getActivity()).getActualExercice();
+        this.dynamicLayout = view.findViewById(R.id.dynamicLayout);
+        this.title = (TextView) view.findViewById(R.id.title);
+        this.title.setText(getActualExercice);
         return view;
     }
 
-    private void addClickListenerToButtons(View parentView) {
-        Button button = parentView.findViewById(R.id.button);
-        button.setOnClickListener(v -> handleButtonClick(parentView));
+
+    public void displayPopUp(){
+        popUpDialog = new Dialog(getContext());
+        popUpDialog.setContentView(R.layout.dialog_add_exercice);
+        popUpDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        popUpDialog.show();
+        popUpDialog.findViewById(R.id.buttonCancelExercice).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popUpDialog.dismiss();
+            }
+        });
+        popUpDialog.findViewById(R.id.buttonAddExercice).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editTextWeight = popUpDialog.findViewById(R.id.editTextExercicePoids);
+                EditText editTextReps = popUpDialog.findViewById(R.id.editTextExerciceReps);
+                String exerciceWeight = editTextWeight.getText().toString();
+                String exerciceReps = editTextReps.getText().toString();
+                editTextWeight.setText("");
+                editTextReps.setText("");
+                try{
+                    ((MainActivity) getActivity()).setSet(exerciceWeight, exerciceReps);
+//                    displayPreviousExercices(v);
+                }
+                catch (JSONException e){
+                    System.out.println(e);
+                }
+                popUpDialog.dismiss();
+
+            }
+        });
     }
 
-    private void handleButtonClick(View parentView){
-        String nbWeight = ((EditText) parentView.findViewById(R.id.editTextExerciceWeight)).getText().toString();
-        String nbRep = ((EditText) parentView.findViewById(R.id.editTextExerciceReps)).getText().toString();
-        //empty the editText
-        ((EditText) parentView.findViewById(R.id.editTextExerciceWeight)).setText("");
-        ((EditText) parentView.findViewById(R.id.editTextExerciceReps)).setText("");
-        //try {
-            //((MainActivity) getActivity()).setSet(nbRep, nbWeight);
-            JSONObject data = ((MainActivity) getActivity()).getData();
-            System.out.print(data);
-            JSONObject data2 = ((MainActivity) getActivity()).getData();
-            System.out.println(data2);
-        //}
-        //catch (JSONException e) {
-          //  System.out.print(e);
-        //}
+    private void addClickListenerToButtons(View parentView) {
+        System.out.print("salut bg");
     }
+
+
 
     public void displayPreviousExercices(View v ){
         JSONObject data = ((MainActivity) getActivity()).getData();
@@ -112,14 +137,18 @@ public class ExerciceFragment extends Fragment {
             JSONArray session = data.getJSONArray(((MainActivity) getActivity()).getActualSession());
             JSONObject exercices =session.getJSONObject(0);
             JSONArray sets = exercices.getJSONArray(((MainActivity) getActivity()).getActualExercice());
-            System.out.println(sets);
-
-            for ( int i=0; i<sets.length(); i++ ) {
-                //System.out.println( sets[ i ] );
+            if(sets.length() == 0){
                 TextView textView = new TextView((MainActivity) getActivity());
-                textView.setText(sets.getJSONObject(i).getString("weight") + "kg x " + sets.getJSONObject(i).getString("reps"));
+                textView.setText("No sets for this exercice");
                 this.dynamicLayout.addView(textView);
+            }else{
+                for ( int i=0; i<sets.length(); i++ ) {
+                    TextView textView = new TextView((MainActivity) getActivity());
+                    textView.setText(sets.getJSONObject(i).getString("weight") + "kg x " + sets.getJSONObject(i).getString("reps"));
+                    this.dynamicLayout.addView(textView);
+                }
             }
+
 
         }
         catch (JSONException e){
