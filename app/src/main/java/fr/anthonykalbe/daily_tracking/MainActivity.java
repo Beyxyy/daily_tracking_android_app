@@ -78,10 +78,8 @@ public class MainActivity extends AppCompatActivity {
             if(this.data.has(this.getActualSession())){
                 JSONArray actualSessionData = (JSONArray) this.data.getJSONArray(this.getActualSession());
                 JSONObject newObject = new JSONObject().put(exercice, new JSONArray());
-                //actualSessionData.put(newObject);
                 boolean already_enregistred = false;
                 Integer length = actualSessionData.length();
-                System.out.print(length);
                 if(length == 0){
                     actualSessionData.put(newObject);
                 }
@@ -93,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if(!already_enregistred) {
                         actualSessionData.put(newObject);
-                        System.out.print(this.data);
                     }
                     else{
                         System.out.print("already enregistred");
@@ -131,10 +128,7 @@ public class MainActivity extends AppCompatActivity {
     public void setSet(String reps, String weight) throws JSONException {
         //JSONArray actualSessionData = this.data.getJSONArray(this.getActualSession()).getJSONObject(0).getJSONArray(this.getActualExercice());
         JSONArray actualSessionData = this.data.getJSONArray(this.getActualSession());
-        System.out.print(actualSessionData);
                 //.getJSONArray(this.getActualExercice());
-        System.out.print(actualSessionData.length());
-        System.out.print(actualSessionData);
         for(int i = 0; i<actualSessionData.length(); i++){
             JSONObject a = actualSessionData.getJSONObject(i);
             if(a.has(this.getActualExercice())){
@@ -144,5 +138,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 }

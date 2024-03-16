@@ -76,6 +76,7 @@ public class ExerciceFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_exercice, container, false);
         this.mainActivity = (MainActivity) getActivity();
         // Ajouter un OnClickListener à tous les boutons dans le fragment
+
         view.findViewById(R.id.buttonPopUp).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,9 +86,10 @@ public class ExerciceFragment extends Fragment {
         });
         addClickListenerToButtons(view);
         String getActualExercice = ((MainActivity) getActivity()).getActualExercice();
-        this.dynamicLayout = view.findViewById(R.id.dynamicLayout);
-        this.title = (TextView) view.findViewById(R.id.title);
-        this.title.setText(getActualExercice);
+        dynamicLayout = view.findViewById(R.id.dynamicLayout);
+        displayPreviousExercices(view);
+        title = (TextView) view.findViewById(R.id.title);
+        title.setText(getActualExercice);
         return view;
     }
 
@@ -114,7 +116,7 @@ public class ExerciceFragment extends Fragment {
                 editTextReps.setText("");
                 try{
                     ((MainActivity) getActivity()).setSet(exerciceWeight, exerciceReps);
-//                    displayPreviousExercices(v);
+                    displayPreviousExercices(v);
                 }
                 catch (JSONException e){
                     System.out.println(e);
@@ -133,19 +135,31 @@ public class ExerciceFragment extends Fragment {
 
     public void displayPreviousExercices(View v ){
         JSONObject data = ((MainActivity) getActivity()).getData();
+        System.out.println(data);
+        //remove all element from dynamicLayout
+        dynamicLayout.removeAllViews();
+
         try{
             JSONArray session = data.getJSONArray(((MainActivity) getActivity()).getActualSession());
-            JSONObject exercices =session.getJSONObject(0);
+            int target = 0;
+            for(int i=0; i<session.length(); i++){
+                if (session.getJSONObject(i).has(((MainActivity) getActivity()).getActualExercice())){
+                    System.out.println("exercice found");
+                    target = i;
+                }
+            }
+            JSONObject exercices =session.getJSONObject(target);
             JSONArray sets = exercices.getJSONArray(((MainActivity) getActivity()).getActualExercice());
+            Integer length = sets.length();
             if(sets.length() == 0){
                 TextView textView = new TextView((MainActivity) getActivity());
                 textView.setText("No sets for this exercice");
-                this.dynamicLayout.addView(textView);
+                dynamicLayout.addView(textView);
             }else{
                 for ( int i=0; i<sets.length(); i++ ) {
                     TextView textView = new TextView((MainActivity) getActivity());
                     textView.setText(sets.getJSONObject(i).getString("weight") + "kg x " + sets.getJSONObject(i).getString("reps"));
-                    this.dynamicLayout.addView(textView);
+                    dynamicLayout.addView(textView);
                 }
             }
 

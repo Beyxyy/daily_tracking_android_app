@@ -4,49 +4,32 @@ package fr.anthonykalbe.daily_tracking;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 
-import okhttp3.*;
-
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
+import retrofit2.Call;
 
 
 public class ApiManager {
-    String url = "https://dailytracking.api.anthony-kalbe.fr/";
+    String url = "10.0.2.2";
     String token;
     String content;
-    OkHttpClient client = new OkHttpClient();
 
-    public void ApiManager(){
-
-    }
 
     public JSONObject login(String id, String pwd){
-        content = "{\"email\":\"" + id + "\",\"password\":\"" + pwd + "\"}";
-        JSONObject result = executeRequest("/", content);
-        return result;
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://localhost")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JSONObjectRequest request = retrofit.create(JSONObjectRequest.class);
+        return null;
     }
 
-    public JSONObject executeRequest(String endpoint, String content) {
-        try {
-            Request request = new Request.Builder()
-                    .url(url + endpoint)
-                    .header("Content-Type", "application/json")
-                    .header("Authorization", "")
-                    .post(RequestBody.create(MediaType.parse("application/json"), content))
-                    .build();
-
-            Response response = client.newCall(request).execute();
-            if (response.code() != 200) {
-                throw new RuntimeException("Error while connecting to the API");
-            }
-            assert response.body() != null;
-            String responseBody = response.body().string();
-            return new JSONObject(responseBody);
-        }
-        catch(RuntimeException | IOException | JSONException e )
-        {
-            System.out.print(e);
-            return null;
-        }
-    }
 }

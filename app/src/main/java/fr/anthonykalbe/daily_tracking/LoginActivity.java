@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Arrays;
@@ -34,20 +35,19 @@ public class LoginActivity extends AppCompatActivity {
                 String pwd_content = pwd.getText().toString();
                 if(!id_content.isEmpty() && !pwd_content.isEmpty()){
                     ApiManager apiManager = new ApiManager();
-                    JSONObject result = apiManager.login(id_content,pwd_content);
-                    if(result == null){
-                        System.out.print("Erreur pendant la connection");
-                    }
-                    else{
-                        AddPreferencesLoginInfo(result);
-                        Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(mainActivity);
-                        finish();
-                    }
-
+                       JSONObject result = apiManager.login(id_content,pwd_content);
+                       System.out.print(result);
+                       if(result == null){
+                           System.out.print("Erreur pendant la connection");
+                       }
+                       else{
+                           AddPreferencesLoginInfo(result);
+                           Intent mainActivity = new Intent(getApplicationContext(), MainActivity.class);
+                           startActivity(mainActivity);
+                           finish();
+                       }
+                   }
                 }
-
-            }
         });
     }
 
