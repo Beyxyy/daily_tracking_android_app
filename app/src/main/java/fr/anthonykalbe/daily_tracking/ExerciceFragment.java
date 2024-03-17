@@ -3,6 +3,7 @@ package fr.anthonykalbe.daily_tracking;
 import android.app.Dialog;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -158,6 +159,9 @@ public class ExerciceFragment extends Fragment {
             }else{
                 for ( int i=0; i<sets.length(); i++ ) {
                     TextView textView = new TextView((MainActivity) getActivity());
+                    textView.setTextSize(20);
+                    //add the secondary color to the background
+                    textView.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.bg_secondary));
                     textView.setText(sets.getJSONObject(i).getString("weight") + "kg x " + sets.getJSONObject(i).getString("reps"));
                     dynamicLayout.addView(textView);
                 }

@@ -1,35 +1,34 @@
 package fr.anthonykalbe.daily_tracking;
 
 
+import android.content.Context;
+import android.widget.Toast;
+
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.*;
 
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.android.volley.*;
 
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
-import retrofit2.Call;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ApiManager {
     String url = "10.0.2.2";
-    String token;
+
     String content;
+    private Context context;
+
+    public RequestQueue queue;
 
 
-    public JSONObject login(String id, String pwd){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://localhost")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        JSONObjectRequest request = retrofit.create(JSONObjectRequest.class);
-        return null;
+    public ApiManager(Context context){
+        this.context = context;
+        queue = Volley.newRequestQueue(context);
     }
+
+
 
 }

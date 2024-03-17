@@ -68,8 +68,8 @@ public class TraingingFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_trainging, container, false);
 
         Button push_button = view.findViewById(R.id.push_button);
-        Button pull_button = view.findViewById(R.id.pull_button);
-        Button leg_button = view.findViewById(R.id.leg_button);
+        //Button pull_button = view.findViewById(R.id.pull_button);
+        //Button leg_button = view.findViewById(R.id.leg_button);
 
         push_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,21 +82,21 @@ public class TraingingFragment extends Fragment {
                 displayNewFragmentTraining("push");
             }
         });
-        pull_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    //setData("session", v.getTag().toString());
-                ((MainActivity) getActivity()).setActualSession(v.getTag().toString());
-                displayNewFragmentTraining("pull");
-            }
-        });
-        leg_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity) getActivity()).setActualSession(v.getTag().toString());
-                displayNewFragmentTraining("leg");
-            }
-        });
+//        pull_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                    //setData("session", v.getTag().toString());
+//                ((MainActivity) getActivity()).setActualSession(v.getTag().toString());
+//                displayNewFragmentTraining("pull");
+//            }
+//        });
+//        leg_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ((MainActivity) getActivity()).setActualSession(v.getTag().toString());
+//                displayNewFragmentTraining("leg");
+//            }
+//        });
         return view;
     }
 

@@ -15,7 +15,7 @@
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="350dp"
         android:background="@color/primary"
         app:cardBackgroundColor="@color/bg_secondary"
         app:cardCornerRadius="25dp"
@@ -28,24 +28,26 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="26sp">
+
+            >
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                tools:layout_editor_absoluteX="92dp"
-                tools:layout_editor_absoluteY="0dp">
+                android:layout_marginTop="25dp"
+                android:gravity="center_horizontal"
+              >
+
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/action_login_title"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/h1_size" />
-
 
                 <EditText
                     android:id="@+id/identifiant"
